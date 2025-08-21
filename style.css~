@@ -1,0 +1,38 @@
+
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		transition: all 500ms ease-in-out;
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+	}
+
+	*::-webkit-scrollbar {
+		display: none;
+	}
+
+
+	.page {
+		box-shadow: 0 0 10px 2px #0002;
+		opacity: .99;
+		border: 2px solid black;
+	}
+
+	.hov:hover{
+		filter: saturate(1.5);
+		transform: scale(1.005);
+	}
+
+	.grid {
+	opacity: .1;
+	}
+
+	.scroll-frame {
+		overflow-y: scroll;
+		height: 100%;
+	}
+
+	.scroll-frame img {
+		width: 90%;
+	}

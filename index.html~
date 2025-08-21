@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Home</title>
+	<meta initial-scale=1.0, width=device-width charset="utf-8">
+</head>
+
+<body>
+</body>
+
+<script type="module" src="./script.js"></script>
+
+</html>
