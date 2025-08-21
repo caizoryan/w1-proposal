@@ -25,18 +25,18 @@ let WHAT = {
 	content: [
 		["TextFrame",
 		 ["text", `1.2.3 What are you going to make?`.toUpperCase()],
-		 ["side", "recto"],
 		 ["top", ["hangline_recto", 0]],
-		 ["left", ["em", 2]],
+		 ["left", ["em", 7]],
 		 ["width", ["column_width_recto", 6]],
 		 ["height", ["em", 4]],
 		 ["font_size", ["em", .8]],
-		 ["css", {
-			 background: "#2222",
-			 fontWeight: 100,
-			 borderBottom: '1px solid black',
-			 fontFamily: 'monospace',
-		 }]
+		 ["css", ["css", [
+			 ["background", "#2222"],
+			 ["fontWeight", 100],
+			 ["transform", 'rotate(90deg)'],
+			 ["borderBottom", '1px solid black'],
+			 ["fontFamily", 'monospace']],
+		 ]]
 		],
 
 		["TextFrame",

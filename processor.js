@@ -1,5 +1,5 @@
 import { TextFrame } from "./frames.js"
-import {s} from "./scale.js"
+import { s } from "./scale.js"
 // ["recto", 2, "x"]
 // ["verso", 2, "x"]
 let process_verso = (prop) => (grid) => {
@@ -79,6 +79,7 @@ export let process_property = (property) => {
 		if (property[0] == "recto") return process_recto(property)
 		if (property[0] == "column_width_verso") return process_column_width_verso(property)
 		if (property[0] == "column_width_recto") return process_column_width_recto(property)
+		if (property[0] == "css") return reduceprops(property[1])
 
 		// units
 		if (property[0] == "em") return process_em(property)
@@ -104,7 +105,7 @@ export let reduceprops = (props) => props.reduce((acc, tuple) => {
 }, {})
 
 export let process = (item) => {
-	if (item[0] == "TextFrame"){
+	if (item[0] == "TextFrame") {
 		let f = reduceprops(item.slice(1))
 		let t = new TextFrame(f)
 		console.log(f)

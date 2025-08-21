@@ -2,7 +2,7 @@ export const DPI = 100
 let mouse_x = 0
 import { data } from "./data.js"
 import { Frame, ImageFrame, TextFrame } from "./frames.js"
-import {process, process_property} from "./processor.js"
+import { process, process_property } from "./processor.js"
 import { s } from "./scale.js"
 
 // let colors = ["#eee", "#ddd", "#ccc"]
@@ -455,7 +455,7 @@ class Book {
 
 	}
 
-	destroy(){
+	destroy() {
 		this.el.remove()
 	}
 }
@@ -641,9 +641,11 @@ let boomm = [meh, meh]
 let basic_spread = (pg, els = []) => {
 	return new Spread(
 		new Structure(boomm), [
-			new TextFrame({ text: pg,
-											top: s.em(1),
-											left: process_property(["verso", 0, "x"]) }),
+		new TextFrame({
+			text: pg,
+			top: s.em(1),
+			left: process_property(["verso", 0, "x"])
+		}),
 		...els
 	])
 }
@@ -652,13 +654,13 @@ let offsets = [
 	[2, s.em(.1), "horizontal", colors[0]],
 	[4, s.em(.5), "horizontal", colors[0]],
 	[6, s.em(-.1), 'vertical', colors[0]],
-	[3, s.em(.1),  'vertical', colors[2]],
-	[8, s.em(.1), "horizontal", colors[2] ]
+	[3, s.em(.1), 'vertical', colors[2]],
+	[8, s.em(.1), "horizontal", colors[2]]
 ]
 
 let book_el = document.createElement("div")
 let pages = [
-	...data.map((e, i) => basic_spread(i*2, e.content.map(process))),
+	...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
 	basic_spread(10),
 	basic_spread(10),
 	basic_spread(12),
@@ -670,6 +672,14 @@ let book = new Book(book_el, pages, offsets)
 document.body.appendChild(book_el)
 let ui = document.createElement('div')
 
+ui.onmouseenter = () => {
+	ui.style.left = '1vw'
+}
+
+ui.onmouseleave = () => {
+	ui.style.left = '-20vw'
+}
+
 /**@type {CSSStyleDeclaration}*/
 let css = {
 	position: 'fixed',
@@ -677,66 +687,121 @@ let css = {
 	height: '80vh',
 	top: '2vh',
 	left: '1vw',
+	zIndex: 99,
 	background: '#ddd',
 	padding: '1em',
 }
 
 apply(ui, css)
 
-data[1].content[0].forEach((item, i) => {
-	if(i==0) return
-	let property = document.createElement('div')
-	let key = document.createElement('p')
-	key.innerText += item[0] + ' : '
+let renderframeui = (items) => {
+	let box = document.createElement('div')
 
-	property.appendChild(key)
+	let c = {
+		border: '1px solid #555',
+		padding: '.4em',
+		marginBottom: '1em',
+	}
 
-	if (Array.isArray(item[1])) {
-		let key = item[1][0]
-		if (key == 'em'
+	apply(box, c)
+
+	ui.appendChild(box)
+
+	items.forEach(
+		(item, i) => {
+		if (i == 0) return
+		let property = document.createElement('div')
+
+		let c = {
+			border: '1px solid #2222',
+			padding: '.4em',
+			fontFamily: 'monospace',
+			margin: '.3em',
+			width: '250px'
+		}
+		apply(property, c)
+
+		let key = document.createElement('span')
+
+		c = {
+			fontFamily: 'monospace',
+		}
+		apply(key, c)
+		key.innerText += item[0] + ' : '
+
+		property.appendChild(key)
+
+		if (Array.isArray(item[1])) {
+			let key = item[1][0]
+			if (key == 'em'
 				|| key == 'hangline_verso'
 				|| key == 'column_width_verso'
 				|| key == 'hangline_recto'
 				|| key == 'column_width_recto'
 				|| key == 'recto'
 				|| key == 'verso'
-			 ) {
-			let input = document.createElement('input')
-			input.value = item[1][1]
-			input.oninput = (e) => {
-				console.log(e)
-				let lastvalue = item[1][1]
-				let newvalue = parseFloat(e.target.value) 
-				if (newvalue == NaN) newvalue = lastvalue
-				item[1][1] = newvalue
+			) {
+				let keyel = document.createElement('span')
+				keyel.innerText = '(' + key.split('_')[0] + ')'
+				let css = {
+					background: '#4444',
+					// color: 'white',
+					fontFamily: 'monospace',
+				}
+				apply(keyel, css)
+
+
+				let input = document.createElement('input')
 				input.value = item[1][1]
-				refresh_redraw_pages()
-			}
-
-			input.onkeydown = (e) => {
-				e.stopPropagation()
-				if (e.key == 'ArrowRight'){
-					item[1][1] += increment
+				input.oninput = (e) => {
+					console.log(e)
+					let lastvalue = item[1][1]
+					let newvalue = parseFloat(e.target.value)
+					if (newvalue == NaN) newvalue = lastvalue
+					item[1][1] = newvalue
 					input.value = item[1][1]
 					refresh_redraw_pages()
 				}
 
-				if (e.key == 'ArrowLeft'){
-					item[1][1] -= increment
-					input.value = item[1][1]
-					refresh_redraw_pages()
+				input.onkeydown = (e) => {
+					e.stopPropagation()
+					if (e.key == 'ArrowRight') {
+						item[1][1] += increment
+						input.value = item[1][1]
+						refresh_redraw_pages()
+					}
+
+					if (e.key == 'ArrowLeft') {
+						item[1][1] -= increment
+						input.value = item[1][1]
+						refresh_redraw_pages()
+					}
 				}
+
+				css = {
+					all: 'unset',
+					border: '1px solid black',
+					padding: '.1em',
+					width: '50px',
+					marginLeft: '.2em'
+				}
+				apply(input, css)
+
+				property.appendChild(input)
+				property.appendChild(keyel)
 			}
 
-			property.appendChild(input)
 		}
-		
-	}
 
-	ui.appendChild(property)
-})
+		box.appendChild(property)
+	})
+	
+}
 
-console.log(data[0].content[0][1])
+let updateui = () => {
+	ui.innerHTML = ''
+	if (Array.isArray(data[book.current_spread].content)) data[book.current_spread].content.forEach(renderframeui)
+}
 
 let refresh_redraw_pages = () => {
 	// save page and destroy
@@ -747,14 +812,14 @@ let refresh_redraw_pages = () => {
 	let book_el = document.createElement("div")
 	document.body.appendChild(book_el)
 	let pages = [
-		...data.map((e, i) => basic_spread(i*2, e.content.map(process))),
+		...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
 		basic_spread(10),
 		basic_spread(10),
 		basic_spread(12),
 		basic_spread(14),
 		basic_spread(16),
 	]
-	book = new Book(book_el, pages , offsets)
+	book = new Book(book_el, pages, offsets)
 
 	// reset saved page and draw
 	book.current_spread = spread
@@ -767,11 +832,15 @@ let next = () => {
 	if (book.current_spread == book.spreads.length - 1) book.current_spread = 0
 	else book.current_spread++
 	book.drawBook()
+
+	updateui()
 }
 let prev = () => {
 	if (book.current_spread == 0) book.current_spread = book.spreads.length - 1
 	else book.current_spread--
 	book.drawBook()
+
+	updateui()
 }
 let moveAllBut = (pg, offset, axis = "vertical") => {
 	let [ii, iii] = book.pageToSheets(pg)
@@ -823,5 +892,6 @@ window.addEventListener("mousemove", (e) => {
 	mouse_x = e.clientX
 })
 book.current_spread = 0
+updateui()
 
 book.drawBook()
