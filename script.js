@@ -662,7 +662,6 @@ let book_el = document.createElement("div")
 let pages = [
 	...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
 	basic_spread(10),
-	basic_spread(10),
 	basic_spread(12),
 	basic_spread(14),
 	basic_spread(16),
@@ -692,115 +691,97 @@ let css = {
 	padding: '1em',
 }
 
+
 apply(ui, css)
 
 let renderframeui = (items) => {
 	let box = document.createElement('div')
-
-	let c = {
-		border: '1px solid #555',
-		padding: '.4em',
-		marginBottom: '1em',
-	}
-
-	apply(box, c)
-
+	box.classList.add('box')
 	ui.appendChild(box)
 
 	items.forEach(
 		(item, i) => {
-		if (i == 0) return
-		let property = document.createElement('div')
+			if (i == 0) return
+			let property = document.createElement('div')
+			property.classList.add('.property')
 
-		let c = {
-			border: '1px solid #2222',
-			padding: '.4em',
-			fontFamily: 'monospace',
-			margin: '.3em',
-			width: '250px'
-		}
-		apply(property, c)
+			let key = document.createElement('span')
+			key.classList.add('key')
+			key.innerText += item[0] + ' : '
 
-		let key = document.createElement('span')
+			property.appendChild(key)
 
-		c = {
-			fontFamily: 'monospace',
-		}
-		apply(key, c)
-		key.innerText += item[0] + ' : '
+			if (Array.isArray(item[1])) {
+				let key = item[1][0]
+				if (key == 'em'
+					|| key == 'hangline_verso'
+					|| key == 'column_width_verso'
+					|| key == 'hangline_recto'
+					|| key == 'column_width_recto'
+					|| key == 'recto'
+					|| key == 'verso'
+				) {
+					let unit = document.createElement('span')
+					unit.innerText = '(' + key.split('_')[0] + ')'
+					unit.classList.add('unit')
 
-		property.appendChild(key)
-
-		if (Array.isArray(item[1])) {
-			let key = item[1][0]
-			if (key == 'em'
-				|| key == 'hangline_verso'
-				|| key == 'column_width_verso'
-				|| key == 'hangline_recto'
-				|| key == 'column_width_recto'
-				|| key == 'recto'
-				|| key == 'verso'
-			) {
-				let keyel = document.createElement('span')
-				keyel.innerText = '(' + key.split('_')[0] + ')'
-				let css = {
-					background: '#4444',
-					// color: 'white',
-					fontFamily: 'monospace',
-				}
-				apply(keyel, css)
-
-
-				let input = document.createElement('input')
-				input.value = item[1][1]
-				input.oninput = (e) => {
-					console.log(e)
-					let lastvalue = item[1][1]
-					let newvalue = parseFloat(e.target.value)
-					if (newvalue == NaN) newvalue = lastvalue
-					item[1][1] = newvalue
+					let input = document.createElement('input')
 					input.value = item[1][1]
-					refresh_redraw_pages()
-				}
-
-				input.onkeydown = (e) => {
-					e.stopPropagation()
-					if (e.key == 'ArrowRight') {
-						item[1][1] += increment
+					input.oninput = (e) => {
+						let lastvalue = item[1][1]
+						let newvalue = parseFloat(e.target.value)
+						if (newvalue == NaN) newvalue = lastvalue
+						item[1][1] = newvalue
 						input.value = item[1][1]
 						refresh_redraw_pages()
 					}
 
-					if (e.key == 'ArrowLeft') {
-						item[1][1] -= increment
-						input.value = item[1][1]
-						refresh_redraw_pages()
+					input.onkeydown = (e) => {
+						if (e.key == 'ArrowRight') {
+							e.stopPropagation()
+							item[1][1] += increment
+							input.value = item[1][1]
+							refresh_redraw_pages()
+						}
+
+						if (e.key == 'ArrowLeft') {
+							e.stopPropagation()
+							item[1][1] -= increment
+							input.value = item[1][1]
+							refresh_redraw_pages()
+						}
 					}
+
+					property.appendChild(input)
+					property.appendChild(unit)
 				}
 
-				css = {
-					all: 'unset',
-					border: '1px solid black',
-					padding: '.1em',
-					width: '50px',
-					marginLeft: '.2em'
-				}
-				apply(input, css)
-
-				property.appendChild(input)
-				property.appendChild(keyel)
 			}
 
-		}
+			box.appendChild(property)
+		})
 
-		box.appendChild(property)
-	})
-	
+}
+
+let save = () => {
+		fetch('/save', {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			method: 'POST',
+			body: JSON.stringify(data)
+		}).then((res) => res.json())
+			.then((res) => console.log(res))
 }
 
 let updateui = () => {
 	ui.innerHTML = ''
 	if (Array.isArray(data[book.current_spread].content)) data[book.current_spread].content.forEach(renderframeui)
+	let btn = document.createElement('button')
+	btn.innerText = 'save'
+	btn.onclick = () => save()
+
+	ui.appendChild(btn)
 }
 
 let refresh_redraw_pages = () => {
@@ -813,7 +794,6 @@ let refresh_redraw_pages = () => {
 	document.body.appendChild(book_el)
 	let pages = [
 		...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
-		basic_spread(10),
 		basic_spread(10),
 		basic_spread(12),
 		basic_spread(14),
@@ -861,6 +841,7 @@ window.addEventListener("keydown", (e) => {
 
 	let pgg = () => book.current_spread * 2 + (mouse_x > window.innerWidth / 2 ? 1 : 0)
 
+	if (e.key == "s" && e.metaKey) { e.preventDefault(); save() }
 	if (e.key == "ArrowLeft" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(.5), "horizontal") }
 	else if (e.key == "ArrowRight" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(-.5), "horizontal") }
 	else if (e.key == "ArrowUp" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(-.5)) }

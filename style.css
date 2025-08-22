@@ -77,3 +77,46 @@
 	img:hover {
 		transition: none;
 	}
+
+	.box {
+		border: 1px solid #555;
+		padding: .4em;
+		margin-bottom: 1em;
+	}
+
+	.property {
+		border: 1px solid #2222;
+		padding: .4em;
+		font-family: monospace;
+		margin: .3em;
+		width: 250px;
+	}
+
+	.key {
+		font-family: monospace;
+	}
+
+	.unit {
+		background: #4444;
+		font-family: monospace;
+	}
+
+	button {
+		all: unset;
+		border: 1px solid black;
+		padding: .1em;
+	}
+
+	button:hover {
+		cursor: pointer;
+		background: black;
+		color: white;
+	}
+
+	input {
+		all: unset;
+		border: 1px solid black;
+		padding: .1em;
+		width: 50px;
+		margin-left: .2em;
+	}

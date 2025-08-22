@@ -1,64 +1,101 @@
 let COVER = {
-		content: [["TextFrame",
-		 ["text", `
+	content: [["TextFrame",
+		["text", `
 Front Cover
 ----------- `],
-		 ["side", "recto"],
-		 ["top", ["hangline_recto", 0]],
-		 ["left", ["em", .5]],
-		 ["width", ["em", 2]],
-		 ["height", ["em", 2]]
-		],
+		["side", "recto"],
+		["top", ["hangline_recto", 0]],
+		["left", ["em", .5]],
+		["width", ["em", 2]],
+		["height", ["em", 2]]
+	],
 
-		["TextFrame",
-		 ["text", `(loose thread of notes, to do's and dont's + references)`],
-		 ["side", "recto"],
-		 ["top", ["hangline_recto", 2]],
-		 ["left", ["em", 2]],
-		 ["font_size", ["em", .5]],
-		 ["width", ["column_width_recto", 6]],
-		 ["height", ["em", 2]]
-		]]
-	}
+	["TextFrame",
+		["text", `(loose thread of notes, to do's and dont's + references)`],
+		["side", "recto"],
+		["top", ["hangline_recto", 2]],
+		["left", ["em", 2]],
+		["font_size", ["em", .5]],
+		["width", ["column_width_recto", 6]],
+		["height", ["em", 2]]
+	]]
+}
 
 let WHAT = {
 	content: [
 		["TextFrame",
-		 ["text", `1.2.3 What are you going to make?`.toUpperCase()],
-		 ["top", ["hangline_recto", 0]],
-		 ["left", ["em", 7]],
-		 ["width", ["column_width_recto", 6]],
-		 ["height", ["em", 4]],
-		 ["font_size", ["em", .8]],
-		 ["css", ["css", [
-			 ["background", "#2222"],
-			 ["fontWeight", 100],
-			 ["transform", 'rotate(90deg)'],
-			 ["borderBottom", '1px solid black'],
-			 ["fontFamily", 'monospace']],
-		 ]]
+			["text", `1.2.3 What are you going to make?`.toUpperCase()],
+			["top", ["hangline_recto", 0]],
+			["left", ["em", 7]],
+			["width", ["column_width_recto", 6]],
+			["height", ["em", 4]],
+			["font_size", ["em", .8]],
+			["css", ["css", [
+				["background", "#2222"],
+				["fontWeight", 100],
+				["transform", 'rotate(90deg)'],
+				["borderBottom", '1px solid black'],
+				["fontFamily", 'monospace']],
+			]]
 		],
 
 		["TextFrame",
-		 ["text", `Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (includeing a TBD techincal paper).`],
-		 ["side", "recto"],
-		 ["top", ["hangline_recto", 2]],
-		 ["left", ["em", 2]],
-		 ["font_size", ["em", .5]],
-		 ["width", ["column_width_recto", 8]],
-		 ["height", ["em", 2]]
+			["text", `Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (includeing a TBD techincal paper).`],
+			["side", "recto"],
+			["top", ["hangline_recto", 2]],
+			["left", ["em", 2]],
+			["font_size", ["em", .5]],
+			["width", ["column_width_recto", 8]],
+			["height", ["em", 2]]
 		]]
-	}
+}
+
+let test = {
+	content: [
+		["TextFrame",
+			["text", `1.2.3 What are you going to make?`.toUpperCase()],
+			["top", ["hangline_recto", 0]],
+			["left", ["em", 7]],
+			["width", ["column_width_recto", 6]],
+			["height", ["em", 4]],
+			["font_size", ["em", .8]],
+			["css", ["css", [
+				["background", "#2222"],
+				["fontWeight", 100],
+				["borderBottom", '1px solid black'],
+				["fontFamily", 'monospace']],
+			]]
+		],
+
+		["TextFrame",
+			["text", `Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (includeing a TBD techincal paper).`],
+			["side", "recto"],
+			["top", ["hangline_recto", 2]],
+			["left", ["em", 2]],
+			["font_size", ["em", .5]],
+			["width", ["column_width_recto", 8]],
+			["height", ["em", 2]]
+		]]
+}
 // 
 // ---------------------------------
 
 
-	
-
-export const data = [
+export let data = [
 	COVER,
 	WHAT,
+	test
 ]
+
+await fetch('./data.json')
+	.then((res) => res.json())
+	.then((res) => {
+		// make it so it rewrites the props, but not the text element...
+		res.forEach((e, i) => data[i] = e)
+	})
+
+
+
 
 
 
