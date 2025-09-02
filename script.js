@@ -1074,6 +1074,31 @@ window.addEventListener("keydown", (e) => {
 	else if (e.key == "ArrowRight") next()
 	else if (e.key == "ArrowLeft") prev()
 })
+
+let nextbtn = document.createElement("button")
+nextbtn.innerText = "→"
+nextbtn.onclick = next
+let c = {
+	bottom: "2em",
+	right: "4em",
+	position: "fixed",
+	fontSize: "1.5em"
+}
+apply(nextbtn, c)
+document.body.appendChild(nextbtn)
+
+let prevbtn = document.createElement("button")
+prevbtn.innerText = "←"
+prevbtn.onclick = prev
+c = {
+	bottom: "2em",
+	left: "6em",
+	position: "fixed",
+	fontSize: "1.5em"
+}
+apply(prevbtn, c)
+document.body.appendChild(prevbtn)
+
 window.addEventListener("mousemove", (e) => {
 	mouse_x = e.clientX
 })
