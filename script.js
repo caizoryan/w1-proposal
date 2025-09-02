@@ -1,7 +1,7 @@
 export const DPI = 100
 let mouse_x = 0
-import { data } from "./data.js"
-import { Frame, ImageFrame, TextFrame } from "./frames.js"
+import { append_prop, data } from "./data.js"
+import { TextFrame } from "./frames.js"
 import { process, process_property } from "./processor.js"
 import { s } from "./scale.js"
 
@@ -22,8 +22,8 @@ export let apply = (el, css) => {
 // ------------------------
 let z = 0
 
-let page_width = s.px(window.innerWidth * .7 * .5)
-let page_height = s.px(window.innerHeight * .85)
+let page_width = s.inch(2.5)
+let page_height = s.inch(3.5)
 let book_top = s.px(window.innerHeight * .05)
 let book_left = s.px(window.innerWidth * .15)
 
@@ -245,8 +245,9 @@ class Book {
 		this.spreads = spreads
 
 		this.initPages()
+		this.offsets = offsets
 		// console.log(this.pages())
-		if (offsets) offsets.forEach(e => this.markPageOffset(...e))
+		if (this.offsets) this.offsets.forEach(e => this.markPageOffset(e.page, e.offset, e.axis, e.color))
 	}
 
 	initPages() {
@@ -290,6 +291,7 @@ class Book {
 
 		}
 
+		console.log(this.getOffsets())
 	}
 
 	pages() {
@@ -353,9 +355,84 @@ class Book {
 		return [index, pair_index]
 	}
 
-	markOffset(index, offset, axis = "vertical", c = colors[0]) {
-		//if (!this.validate_spread(index)) return
+	getOffsets() {
+		// go through spreads if offsets found, mark the paired up sheets with no check
+		let nocheck = []
+		let offsets = []
+		let pages = this.pages()
 
+		pages.forEach((e, i) => {
+			if (0) return
+			let spread = this.spreads[i]
+			let spreads = this.saddlePages()
+
+			if (spread.offset.verso.length > 0) {
+				let ids = this.pageToSheets(e[0])
+				let sheet = spreads[ids[0]]
+				let pair = spreads[ids[1]]
+
+				let ignore = false
+				sheet.forEach((e) => nocheck.includes(e) ? ignore = true : null)
+				pair.forEach((e) => nocheck.includes(e) ? ignore = true : null)
+				if (ignore) return
+
+				let h, v
+
+				spread.offset.verso.forEach(e => {
+					if (e.axis == 'horizontal') {
+						!h ? h = e : h = { ...h, offset: s.add(h.offset, e.offset) }
+					}
+
+					if (e.axis == 'vertical') {
+						!v ? v = e : v = { ...v, offset: s.add(v.offset, e.offset), }
+					}
+				})
+
+				if (h) offsets.push(h)
+				if (v) offsets.push(v)
+
+				sheet.forEach((e) => nocheck.push(e))
+				pair.forEach((e) => nocheck.push(e))
+			}
+
+			if (spread.offset.recto.length > 0) {
+				let ids = this.pageToSheets(e[1])
+				let sheet = spreads[ids[0]]
+				let pair = spreads[ids[1]]
+
+				let ignore = false
+				sheet.forEach((e) => nocheck.includes(e) ? ignore = true : null)
+				pair.forEach((e) => nocheck.includes(e) ? ignore = true : null)
+				if (ignore) return
+
+				let h, v
+
+				spread.offset.recto.forEach(e => {
+					if (e.axis == 'horizontal') {
+						!h ? h = e : h = { ...h, offset: s.add(h.offset, e.offset), }
+					}
+
+					if (e.axis == 'vertical') {
+						!v ? v = e : v = { ...v, offset: s.add(v.offset, e.offset), }
+					}
+				})
+
+				if (h) offsets.push(h)
+				if (v) offsets.push(v)
+
+
+				sheet.forEach((e) => nocheck.push(e))
+				pair.forEach((e) => nocheck.push(e))
+			}
+		})
+
+
+		return offsets
+
+	}
+
+	markOffset(index, offset, axis = "vertical", c) {
+		//if (!this.validate_spread(index)) return
 		let spreads = this.saddlePages()
 
 		let sheet = spreads[index]
@@ -367,36 +444,9 @@ class Book {
 			// if odd, mark recto
 			let index = this.page_to_spread(e)
 			let spread = this.spreads[index]
-			let struct = spread.structure
-			if (e % 2 == 1) {
-				struct.recto.background = c
-				if (axis == "vertical") struct.recto.top = s.add(struct.recto.top, offset)
-				else {
-					if (this.beforeSpine(e)) {
-						struct.recto.width = s.sub(struct.recto.width, offset)
-					}
 
-					else {
-						struct.recto.width = s.add(struct.recto.width, offset)
-					}
-				}
-
-			}
-			else {
-				struct.verso.background = c
-				if (axis == "vertical") struct.verso.top = s.add(struct.verso.top, offset)
-
-				else {
-					if (this.beforeSpine(e)) {
-						struct.verso.width = s.sub(struct.verso.width, offset)
-						struct.verso.left = s.add(struct.verso.left, offset)
-					}
-					else {
-						struct.verso.width = s.add(struct.verso.width, offset)
-						struct.verso.left = s.sub(struct.verso.left, offset)
-					}
-				}
-			}
+			if (e % 2 == 1) spread.markRectoOffset(this.beforeSpine(e), e, offset, axis, c)
+			else spread.markVersoOffset(this.beforeSpine(e), e, offset, axis, c)
 
 			spread.drawGrid()
 			spread.update()
@@ -466,8 +516,49 @@ class Spread {
 		this.structure = structure
 		this.elements = elements
 		this.renderGrid = true
-
+		this.offset = {
+			recto: [],
+			verso: []
+		}
 		// console.log(this.structure.columns())
+	}
+
+	markRectoOffset(beforespine, page, offset, axis = 'vertical', c) {
+		let struct = this.structure
+		if (!c) {
+			if (this.offset.recto[0]?.color) c = this.offset.recto[0].color
+			else c = colors[0]
+		}
+		this.offset.recto.push({ offset, page, axis, color: c })
+		struct.recto.background = c
+		if (axis == "vertical") struct.recto.top = s.add(struct.recto.top, offset)
+		else {
+			if (beforespine) struct.recto.width = s.sub(struct.recto.width, offset)
+			else struct.recto.width = s.add(struct.recto.width, offset)
+		}
+
+	}
+
+	markVersoOffset(beforespine, page, offset, axis = 'vertical', c) {
+		let struct = this.structure
+		if (!c) {
+			if (this.offset.verso[0]?.color) c = this.offset.verso[0].color
+			else c = colors[0]
+		}
+		this.offset.verso.push({ offset, page, axis, color: c })
+		struct.verso.background = c
+		if (axis == "vertical") struct.verso.top = s.add(struct.verso.top, offset)
+
+		else {
+			if (beforespine) {
+				struct.verso.width = s.sub(struct.verso.width, offset)
+				struct.verso.left = s.add(struct.verso.left, offset)
+			}
+			else {
+				struct.verso.width = s.add(struct.verso.width, offset)
+				struct.verso.left = s.sub(struct.verso.left, offset)
+			}
+		}
 	}
 
 	init(index) {
@@ -533,6 +624,23 @@ class Spread {
 			apply(child, css)
 			this.el_verso.appendChild(child)
 		})
+
+		this.structure.verso_hanglines().forEach((col) => {
+			let child = document.createElement("div")
+			child.classList.add("grid")
+			let css = {
+				top: col.px + "px",
+				left: 0,
+				width: '100%',
+				height: 1 + "px",
+				position: "absolute",
+				border: ".1px solid #111a"
+			}
+
+			apply(child, css)
+			this.el_verso.appendChild(child)
+		})
+
 		this.structure.recto_columns().forEach((col) => {
 			let child = document.createElement("div")
 			child.classList.add("grid")
@@ -541,6 +649,21 @@ class Spread {
 				left: col.x.px + "px",
 				width: col.w.px + "px",
 				height: col.h.px + "px",
+				position: "absolute",
+				border: ".1px solid #111a"
+			}
+
+			apply(child, css)
+			this.el_recto.appendChild(child)
+		})
+		this.structure.recto_hanglines().forEach((col) => {
+			let child = document.createElement("div")
+			child.classList.add("grid")
+			let css = {
+				top: col.px + "px",
+				left: 0,
+				width: '100%',
+				height: 1 + "px",
 				position: "absolute",
 				border: ".1px solid #111a"
 			}
@@ -629,12 +752,8 @@ class Spread {
 
 let meh = {
 	columns: 8,
-	gutter: s.em(.5),
-	hanglines: [
-		s.em(1),
-		s.em(4),
-		s.em(8)
-	]
+	gutter: s.em(.125),
+	hanglines: [1,2,4,6,8,10,12,14,16,18].map(e => s.em(e))
 }
 
 let boomm = [meh, meh]
@@ -650,18 +769,15 @@ let basic_spread = (pg, els = []) => {
 	])
 }
 
-let offsets = [
-	[2, s.em(.1), "horizontal", colors[0]],
-	[4, s.em(.5), "horizontal", colors[0]],
-	[6, s.em(-.1), 'vertical', colors[0]],
-	[3, s.em(.1), 'vertical', colors[2]],
-	[8, s.em(.1), "horizontal", colors[2]]
-]
+let offsets 
+
+await fetch('./offsets.json').then((res) => res.json()).then((res) => {
+	offsets = res
+})
 
 let book_el = document.createElement("div")
 let pages = [
 	...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
-	basic_spread(10),
 	basic_spread(12),
 	basic_spread(14),
 	basic_spread(16),
@@ -670,32 +786,36 @@ let pages = [
 let book = new Book(book_el, pages, offsets)
 document.body.appendChild(book_el)
 let ui = document.createElement('div')
-
-ui.onmouseenter = () => {
-	ui.style.left = '1vw'
-}
-
-ui.onmouseleave = () => {
-	ui.style.left = '-20vw'
-}
+ui.classList.add('ui')
 
 /**@type {CSSStyleDeclaration}*/
-let css = {
-	position: 'fixed',
-	width: '30vw',
-	height: '80vh',
-	top: '2vh',
-	left: '1vw',
-	zIndex: 99,
-	background: '#ddd',
-	padding: '1em',
+
+let save = () => {
+	fetch('/save', {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		method: 'POST',
+		body: JSON.stringify(data)
+	}).then((res) => res.json())
+		.then((res) => console.log(res))
+
+	fetch('/offsets', {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		method: 'POST',
+		body: JSON.stringify(book.getOffsets())
+	}).then((res) => res.json())
+		.then((res) => console.log(res))
 }
-
-
-apply(ui, css)
-
+let buffer = []
+let current_box
 let renderframeui = (items) => {
 	let box = document.createElement('div')
+	box.onclick = (e) => { current_box = items }
+	box.onmouseleave = () => { current_box = null }
+
 	box.classList.add('box')
 	ui.appendChild(box)
 
@@ -703,7 +823,21 @@ let renderframeui = (items) => {
 		(item, i) => {
 			if (i == 0) return
 			let property = document.createElement('div')
-			property.classList.add('.property')
+			property.onclick = (e) => {
+				
+				if (e.metaKey) {
+					property.setAttribute('activated', 'true')
+					buffer.push(item)
+				}
+			}
+			// property.onmouseenter = () => {
+			// 	buffer = item
+			// }
+			// property.onmouseleave = () => {
+			// 	property.setAttribute('activated', 'false')
+			// 	buffer = null
+			// }
+			property.classList.add('property')
 
 			let key = document.createElement('span')
 			key.classList.add('key')
@@ -713,7 +847,10 @@ let renderframeui = (items) => {
 
 			if (Array.isArray(item[1])) {
 				let key = item[1][0]
-				if (key == 'em'
+				if (
+					key == 'em'
+					|| key == 'point'
+					|| key == 'inch'
 					|| key == 'hangline_verso'
 					|| key == 'column_width_verso'
 					|| key == 'hangline_recto'
@@ -722,31 +859,34 @@ let renderframeui = (items) => {
 					|| key == 'verso'
 				) {
 					let unit = document.createElement('span')
-					unit.innerText = '(' + key.split('_')[0] + ')'
+					unit.innerText = '(' + key + ')'
 					unit.classList.add('unit')
 
 					let input = document.createElement('input')
 					input.value = item[1][1]
-					input.oninput = (e) => {
-						let lastvalue = item[1][1]
-						let newvalue = parseFloat(e.target.value)
-						if (newvalue == NaN) newvalue = lastvalue
-						item[1][1] = newvalue
-						input.value = item[1][1]
-						refresh_redraw_pages()
-					}
-
 					input.onkeydown = (e) => {
-						if (e.key == 'ArrowRight') {
+						if (e.key == 'ArrowRight') { e.stopPropagation() }
+						if (e.key == 'ArrowLeft') { e.stopPropagation() }
+						if (e.key == 'ArrowUp') {
 							e.stopPropagation()
 							item[1][1] += increment
 							input.value = item[1][1]
 							refresh_redraw_pages()
 						}
-
-						if (e.key == 'ArrowLeft') {
+						if (e.key == 'ArrowDown') {
 							e.stopPropagation()
 							item[1][1] -= increment
+							input.value = item[1][1]
+							refresh_redraw_pages()
+						}
+
+						if (e.key == 'Enter') {
+							e.stopPropagation()
+							e.preventDefault()
+							let lastvalue = item[1][1]
+							let newvalue = parseFloat(e.target.value)
+							if (newvalue == NaN) newvalue = lastvalue
+							item[1][1] = newvalue
 							input.value = item[1][1]
 							refresh_redraw_pages()
 						}
@@ -756,22 +896,65 @@ let renderframeui = (items) => {
 					property.appendChild(unit)
 				}
 
+
+				else if (key == 'css') {
+					let css_box = document.createElement('div')
+					if (Array.isArray(item[1][1])) item[1][1].forEach((el) => {
+						let p = document.createElement('p')
+						let key = document.createElement('span')
+						let input = document.createElement('input')
+						key.innerText = el[0]
+						input.value = el[1]
+
+						input.onkeydown = (e) => {
+							if (e.key == 'ArrowRight') { e.stopPropagation() }
+							if (e.key == 'ArrowLeft') { e.stopPropagation() }
+							if (e.key == 'Enter') {
+								e.stopPropagation()
+								e.preventDefault()
+								let value = e.target.value
+								el[1] = value
+								refresh_redraw_pages()
+							}
+						}
+
+						p.appendChild(key)
+						p.appendChild(input)
+						css_box.appendChild(p)
+					})
+
+					property.appendChild(css_box)
+				}
+
+			}
+			else if (
+				typeof item[1] == 'number'||
+				typeof item[1] == 'string'
+			) {
+
+				let input = document.createElement('input')
+				input.value = item[1]
+				input.onkeydown = (e) => {
+					if (e.key == 'ArrowRight') { e.stopPropagation() }
+					if (e.key == 'ArrowLeft') { e.stopPropagation() }
+					if (e.key == 'Enter') {
+						e.stopPropagation()
+						e.preventDefault()
+						let newvalue = e.target.value
+						item[1] = newvalue
+						console.log(item[1])
+						input.value = item[1]
+						refresh_redraw_pages()
+					}
+				}
+
+				property.appendChild(input)
+
 			}
 
 			box.appendChild(property)
 		})
 
-}
-
-let save = () => {
-		fetch('/save', {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			method: 'POST',
-			body: JSON.stringify(data)
-		}).then((res) => res.json())
-			.then((res) => console.log(res))
 }
 
 let updateui = () => {
@@ -794,11 +977,11 @@ let refresh_redraw_pages = () => {
 	document.body.appendChild(book_el)
 	let pages = [
 		...data.map((e, i) => basic_spread(i * 2, e.content.map(process))),
-		basic_spread(10),
 		basic_spread(12),
 		basic_spread(14),
 		basic_spread(16),
 	]
+
 	book = new Book(book_el, pages, offsets)
 
 	// reset saved page and draw
@@ -836,34 +1019,56 @@ let moveAllBut = (pg, offset, axis = "vertical") => {
 	book.drawBook()
 }
 
-window.addEventListener("keydown", (e) => {
-	console.log(e.key)
+let clipboard = []
+let copy = () => clipboard = buffer
+let clearclipboard = () => {
+	buffer = []
+	clipboard = []
+	document.querySelectorAll('*[activated="true"]').forEach((e) => e.setAttribute('activated', 'false'))
+}
+let paste = () => {
+	if (clipboard) {
+		if (current_box) {
+			buffer.forEach(item => append_prop(item, current_box))
+			updateui()
+			refresh_redraw_pages()
+		}
+	}
+	clearclipboard()
+}
 
+window.addEventListener("keydown", (e) => {
 	let pgg = () => book.current_spread * 2 + (mouse_x > window.innerWidth / 2 ? 1 : 0)
+	let inc = () => s.em(Math.random() * .3 + .2)
+	let ninc = () => s.em((Math.random() * .3 + .2) * -1)
 
 	if (e.key == "s" && e.metaKey) { e.preventDefault(); save() }
-	if (e.key == "ArrowLeft" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(.5), "horizontal") }
-	else if (e.key == "ArrowRight" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(-.5), "horizontal") }
-	else if (e.key == "ArrowUp" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(-.5)) }
-	else if (e.key == "ArrowDown" && e.shiftKey && e.altKey) { moveAllBut(pgg(), s.em(.5)) }
+	if (e.key == "c" && e.metaKey) { e.preventDefault(); copy() }
+	if (e.key == "v" && e.metaKey) { e.preventDefault(); paste() }
+	if (e.key == "Escape") clearclipboard()
+	if (e.key == "ArrowLeft" && e.shiftKey && e.altKey) { moveAllBut(pgg(), inc(), "horizontal") }
+
+	else if (e.key == "ArrowRight" && e.shiftKey && e.altKey) { moveAllBut(pgg(), ninc(), "horizontal") }
+	else if (e.key == "ArrowUp" && e.shiftKey && e.altKey) { moveAllBut(pgg(), ninc()) }
+	else if (e.key == "ArrowDown" && e.shiftKey && e.altKey) { moveAllBut(pgg(), inc()) }
 
 	else if (e.key == "ArrowLeft" && e.shiftKey) {
-		book.markPageOffset(pgg(), s.em(1), "horizontal")
+		book.markPageOffset(pgg(), inc(), "horizontal")
 		book.drawBook()
 	}
 
 	else if (e.key == "ArrowRight" && e.shiftKey) {
-		book.markPageOffset(pgg(), s.em(-1), "horizontal")
+		book.markPageOffset(pgg(), ninc(), "horizontal")
 		book.drawBook()
 	}
 
 	else if (e.key == "ArrowUp" && e.shiftKey) {
-		book.markPageOffset(pgg(), s.em(-1), "vertical")
+		book.markPageOffset(pgg(), ninc(), "vertical")
 		book.drawBook()
 	}
 
 	else if (e.key == "ArrowDown" && e.shiftKey) {
-		book.markPageOffset(pgg(), s.em(1), "vertical")
+		book.markPageOffset(pgg(), inc(), "vertical")
 		book.drawBook()
 	}
 	else if (e.key == "ArrowRight") next()
@@ -872,7 +1077,7 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("mousemove", (e) => {
 	mouse_x = e.clientX
 })
-book.current_spread = 0
+book.current_spread = 3
 updateui()
 
 book.drawBook()

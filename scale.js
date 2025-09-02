@@ -11,6 +11,14 @@ export class Scale {
 	@param {Unit} unit2 
 	*/
 	add(unit1, unit2) {
+		if (unit1.unit == unit2.unit) {
+			return {
+				unit: unit1.unit,
+				value: unit1.value+unit2.value,
+				px: unit1.px+unit2.px,
+			}
+		}
+
 		return this.px_raw(unit1.px + unit2.px)
 	}
 

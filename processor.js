@@ -1,4 +1,4 @@
-import { TextFrame } from "./frames.js"
+import { TextFrame, ImageFrame } from "./frames.js"
 import { s } from "./scale.js"
 // ["recto", 2, "x"]
 // ["verso", 2, "x"]
@@ -108,7 +108,12 @@ export let process = (item) => {
 	if (item[0] == "TextFrame") {
 		let f = reduceprops(item.slice(1))
 		let t = new TextFrame(f)
-		console.log(f)
+
+		return t
+	}
+	else if (item[0] == "ImageFrame") {
+		let f = reduceprops(item.slice(1))
+		let t = new ImageFrame(f)
 
 		return t
 	}

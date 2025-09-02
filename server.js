@@ -18,3 +18,10 @@ app.post('/save', (req, res) => {
 	let read = fs.readFileSync('./data.json', {encoding: 'utf-8'})
 	res.send({wrote: read})
 })
+
+app.post('/offsets', (req, res) => {
+	console.log(req.body)
+	fs.writeFileSync('./offsets.json', JSON.stringify(req.body, null, 2))
+	let read = fs.readFileSync('./offsets.json', {encoding: 'utf-8'})
+	res.send({wrote: read})
+})

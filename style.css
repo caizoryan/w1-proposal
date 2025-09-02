@@ -1,3 +1,12 @@
+	@font-face {
+		font-family: 'Areal';
+		src: url('./fonts/areal.woff2');
+	}
+
+	@font-face {
+		font-family: 'hermit';
+		src: url('./fonts/Hermit-Light.otf');
+	}
 
 	* {
 		padding: 0;
@@ -6,8 +15,9 @@
 		transition: all 150ms ease-in-out;
 		-ms-overflow-style: none;  /* IE and Edge */
 		scrollbar-width: none;  /* Firefox */
-		font-family: "aktiv-grotesk";
+		font-family: 'Areal';
 	}
+
 
 	*::-webkit-scrollbar {
 		display: none;
@@ -54,7 +64,7 @@
 		/* border-top: 1px solid #222a; */
 		border-top: 1px solid blue;
 		font-size: .6em;
-		font-family: "Arial Narrow";
+		font-family: "Areal";
 		line-height: 1.3em;
 		text-transform: uppercase;
 		font-weight: 600;
@@ -78,6 +88,22 @@
 		transition: none;
 	}
 
+	.ui {
+		position: fixed;
+		width: 30vw;
+		height: 80vh;
+		top: 2vh;
+		left: -28vw;
+		z-index: 99;
+		background: #ddd;
+		padding: 1em;
+		overflow-y: scroll;
+	}
+
+	.ui:hover {
+		left: .1vw;
+	}
+
 	.box {
 		border: 1px solid #555;
 		padding: .4em;
@@ -87,18 +113,25 @@
 	.property {
 		border: 1px solid #2222;
 		padding: .4em;
-		font-family: monospace;
+		font-family: 'Areal';
+		font-variation-settings: "MONO" 99.3827;
 		margin: .3em;
 		width: 250px;
 	}
 
+	.property[activated="true"] {
+		background: yellow;
+	}
+
 	.key {
-		font-family: monospace;
+		font-family: 'Areal';
+		font-variation-settings: "MONO" 99.3827;
 	}
 
 	.unit {
 		background: #4444;
-		font-family: monospace;
+		font-family: 'Areal';
+		font-variation-settings: "MONO" 99.3827;
 	}
 
 	button {
@@ -117,6 +150,6 @@
 		all: unset;
 		border: 1px solid black;
 		padding: .1em;
-		width: 50px;
+		width: 150px;
 		margin-left: .2em;
 	}

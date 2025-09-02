@@ -5,7 +5,14 @@
         "TextFrame",
         [
           "text",
-          "\nFront Cover\n----------- "
+          "Proposal\n----------- "
+        ],
+        [
+          "line_height",
+          [
+            "em",
+            1
+          ]
         ],
         [
           "side",
@@ -15,7 +22,7 @@
           "top",
           [
             "hangline_recto",
-            2.5
+            1
           ]
         ],
         [
@@ -29,15 +36,38 @@
           "width",
           [
             "em",
-            2
+            7
           ]
         ],
         [
           "height",
           [
             "em",
-            2
+            13
           ]
+        ],
+        [
+          "font_weight",
+          "600"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            1.2
+          ]
+        ],
+        [
+          "background",
+          "#2222"
+        ],
+        [
+          "borderBottom",
+          "2px solid black"
+        ],
+        [
+          "fontFamily",
+          "hermit"
         ]
       ],
       [
@@ -54,7 +84,127 @@
           "top",
           [
             "hangline_recto",
+            3.8
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            2
+          ]
+        ],
+        [
+          "font_weight",
+          200
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.45
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            3
+          ]
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ]
+      ]
+    ]
+  },
+  {
+    "content": [
+      [
+        "TextFrame",
+        [
+          "text",
+          "1.2.3 WHAT ARE YOU GOING TO MAKE?"
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
             2.5
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            5.5
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            6
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.8
+          ]
+        ],
+        [
+          "background",
+          "#2222"
+        ],
+        [
+          "fontWeight",
+          "100"
+        ],
+        [
+          "transform",
+          "rotate(-.2deg)"
+        ],
+        [
+          "borderBottom",
+          "2px solid black"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (short-form essays and a TBD techincal paper)."
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
+            4
           ]
         ],
         [
@@ -75,15 +225,60 @@
           "width",
           [
             "column_width_recto",
-            6
+            8
           ]
         ],
         [
           "height",
           [
             "em",
-            2
+            11.5
           ]
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "background",
+          "#2222"
+        ],
+        [
+          "transform",
+          "rotate(.2deg)"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "WHAT"
+        ],
+        [
+          "left",
+          [
+            "em",
+            11.95
+          ]
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "transform",
+          "rotate(90deg)"
         ]
       ]
     ]
@@ -94,7 +289,7 @@
         "TextFrame",
         [
           "text",
-          "1.2.3 WHAT ARE YOU GOING TO MAKE?"
+          "\n// 1.2.4 WHAT IS YOUR WORK AIMING TO DO?\n// -------------------------------------\n"
         ],
         [
           "top",
@@ -107,14 +302,14 @@
           "left",
           [
             "em",
-            7
+            1
           ]
         ],
         [
           "width",
           [
             "column_width_recto",
-            6
+            9
           ]
         ],
         [
@@ -132,49 +327,37 @@
           ]
         ],
         [
-          "css",
-          [
-            "css",
-            [
-              [
-                "background",
-                "#2222"
-              ],
-              [
-                "fontWeight",
-                100
-              ],
-              [
-                "transform",
-                "rotate(90deg)"
-              ],
-              [
-                "borderBottom",
-                "1px solid black"
-              ],
-              [
-                "fontFamily",
-                "monospace"
-              ]
-            ]
-          ]
+          "background",
+          "#2222"
+        ],
+        [
+          "fontWeight",
+          "100"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "borderBottom",
+          "1px solid black"
         ]
       ],
       [
         "TextFrame",
         [
           "text",
-          "Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (includeing a TBD techincal paper)."
+          ""
         ],
         [
           "side",
-          "recto"
+          "verso"
         ],
         [
           "top",
           [
             "hangline_recto",
-            2
+            3.5
           ]
         ],
         [
@@ -188,7 +371,195 @@
           "font_size",
           [
             "em",
-            0.5
+            0.55
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            3.5
+          ]
+        ],
+        [
+          "fontFamily",
+          "Arial Narrow"
+        ],
+        [
+          "fontWeight",
+          "100"
+        ],
+        [
+          "background",
+          "#2222"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "\nCatalgoue forms of books (genealogy), the properties that emerge from alternative structures of books and as how structures affect the organisation and interpretation of the content within them."
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
+            4
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            2
+          ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            6
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            4
+          ]
+        ],
+        [
+          "side",
+          "verso"
+        ],
+        [
+          "fontFamily",
+          "Areal"
+        ],
+        [
+          "borderBottom",
+          "2px solid black"
+        ],
+        [
+          "fontWeight",
+          "600"
+        ],
+        [
+          "line_height",
+          [
+            "em",
+            0.6
+          ]
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "Investigate whether (constrained computational tools[&/]environments) can produce forms of publications that can stand as alternatives to digital computational practices. In doing so attempt to expand the domain of computation into print and engage the body[&/]material practices in the process."
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
+            6
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            5
+          ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            6
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            4.5
+          ]
+        ],
+        [
+          "fontFamily",
+          "Areal"
+        ],
+        [
+          "side",
+          "verso"
+        ],
+        [
+          "borderBottom",
+          "1.5px solid black"
+        ],
+        [
+          "background",
+          "#2222"
+        ],
+        [
+          "line_height",
+          [
+            "em",
+            0.6
+          ]
+        ],
+        [
+          "fontWeight",
+          "600"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          ""
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
+            6
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            2
+          ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
           ]
         ],
         [
@@ -202,8 +573,193 @@
           "height",
           [
             "em",
+            1
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "borderBottom",
+          "1px solid black"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          ""
+        ],
+        [
+          "top",
+          [
+            "hangline_recto",
+            9
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
             2
           ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_recto",
+            8
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            1
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "borderBottom",
+          ".5px solid black"
+        ]
+      ],
+      [
+        "ImageFrame",
+        [
+          "src",
+          "https://d2w9rnfcy7mm78.cloudfront.net/39239807/original_325db7a6d8815d648ada6d3ffad099bb.jpg"
+        ],
+        [
+          "filter",
+          "grayscale(1)"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            1
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            1
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ]
+      ],
+      [
+        "ImageFrame",
+        [
+          "src",
+          "https://wiki.xxiivv.com/media/diary/867.jpg"
+        ],
+        [
+          "filter",
+          "grayscale(1)"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            4.5
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            6
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "AIM/STATEMENT"
+        ],
+        [
+          "transform",
+          "rotate(90deg)"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "left",
+          [
+            "em",
+            13.7
+          ]
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
         ]
       ]
     ]
@@ -214,27 +770,337 @@
         "TextFrame",
         [
           "text",
-          "1.2.3 WHAT ARE YOU GOING TO MAKE?"
+          "ELABORATE ON THE APPROACH OR LENS YOU WILL BE CONDUCTING\tHIS STUDY FROM."
         ],
         [
           "top",
           [
-            "hangline_recto",
-            2
+            "hangline_verso",
+            1
+          ]
+        ],
+        [
+          "left",
+          [
+            "verso",
+            0,
+            "x"
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            11.5
+          ]
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.5
+          ]
+        ],
+        [
+          "borderBottom",
+          "1px solid black"
+        ],
+        [
+          "background",
+          "#2222"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "\"the designer constructs a system of constraints, such as a simulation or a set of simple instructions, and then allows the player actively to learn by exploring and tinkering with the system. In each case, there is no prior \"course content\" to be learnt, no predefined terminus of the process, only a rough specification of the general region to be explored, and so the player's individual trajectory may surprise even the designer.\""
+        ],
+        [
+          "tag-0",
+          "quote"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            5
+          ]
+        ],
+        [
+          "left",
+          [
+            "verso",
+            1,
+            "x"
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            7
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "font_family",
+          "Areal"
+        ],
+        [
+          "font_style",
+          "italic"
+        ],
+        [
+          "font_size",
+          [
+            "point",
+            5
+          ]
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "https://gamestudies.org/0601/articles/rodriges"
+        ],
+        [
+          "tag-0",
+          "link"
+        ],
+        [
+          "font_family",
+          "Areal"
+        ],
+        [
+          "font_style",
+          "italic"
+        ],
+        [
+          "font_size",
+          [
+            "point",
+            4
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            6.5
+          ]
+        ],
+        [
+          "left",
+          [
+            "verso",
+            4,
+            "x"
+          ]
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            6.9
+          ]
+        ],
+        [
+          "font_weight",
+          "600"
+        ],
+        [
+          "borderBottom",
+          "1px solid black"
+        ]
+      ],
+      [
+        "ImageFrame",
+        [
+          "src",
+          "https://d2w9rnfcy7mm78.cloudfront.net/39242511/original_87bbdb36dbd8f05b0aaef220bd372c03.jpg"
+        ],
+        [
+          "filter",
+          "grayscale(1)"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            2.7
           ]
         ],
         [
           "left",
           [
             "em",
-            7
+            1
           ]
+        ],
+        [
+          "side",
+          "recto"
         ],
         [
           "width",
           [
-            "column_width_recto",
+            "column_width_verso",
+            7.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            8.5
+          ]
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "Procedural book making by creating enviroments for play (emergent, collage) within a mechanical systems (venn diagram)"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            6.6
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            7
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
             6
+          ]
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "“Play is a way of operating a constrained system in a gratifying way.” Bogost"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            8.2
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            6.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "fontFamily",
+          "Arial Narrow"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
+          ]
+        ],
+        [
+          "font_style",
+          "italic"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "General notes, thoughts"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            0.1999999999999993
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            1
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            6.5
           ]
         ],
         [
@@ -245,60 +1111,8 @@
           ]
         ],
         [
-          "font_size",
-          [
-            "em",
-            0.8
-          ]
-        ],
-        [
-          "css",
-          [
-            "css",
-            [
-              [
-                "background",
-                "#2222"
-              ],
-              [
-                "fontWeight",
-                100
-              ],
-              [
-                "borderBottom",
-                "1px solid black"
-              ],
-              [
-                "fontFamily",
-                "monospace"
-              ]
-            ]
-          ]
-        ]
-      ],
-      [
-        "TextFrame",
-        [
-          "text",
-          "Through the course of the study I will be making publications, zines, newsprints, posters, websites, software sketches. Maybe some form of a printing aparatus and some writings (includeing a TBD techincal paper)."
-        ],
-        [
-          "side",
-          "recto"
-        ],
-        [
-          "top",
-          [
-            "hangline_recto",
-            2
-          ]
-        ],
-        [
-          "left",
-          [
-            "em",
-            2
-          ]
+          "fontFamily",
+          "hermit"
         ],
         [
           "font_size",
@@ -308,9 +1122,42 @@
           ]
         ],
         [
+          "borderBottom",
+          "1px solid black"
+        ],
+        [
+          "background",
+          "#2222"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "Abstraction like Math or Programming creates lenses for interpretation and helps in creation of meaningful play-grounds. Meaningful being, systems that can support interpretation of what the play performed could mean. The play that is performed however is the grounds for the actual making. Abstraction is the grid structure, play is the enactment of (FW) within this structure to produce something."
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            1.2
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            2.5
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
           "width",
           [
-            "column_width_recto",
+            "column_width_verso",
             8
           ]
         ],
@@ -318,8 +1165,264 @@
           "height",
           [
             "em",
-            2
+            6
           ]
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.35
+          ]
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "APPROACH"
+        ],
+        [
+          "transform",
+          "rotate(90deg)"
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "left",
+          [
+            "em",
+            13.7
+          ]
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            3
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ]
+      ]
+    ]
+  },
+  {
+    "content": [
+      [
+        "TextFrame",
+        [
+          "text",
+          "List of example exercises / todos"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            1
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            1
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            2.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            11.5
+          ]
+        ],
+        [
+          "fontFamily",
+          "hermit"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.5
+          ]
+        ],
+        [
+          "borderBottom",
+          "1px solid black"
+        ],
+        [
+          "background",
+          "#2222"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "\n1. Somehow find a slime mold and see if you can interact with it for some form of navigational design (navigation of book?)\n\n2. Explore Physarium Algorithm and use it to create layouts (spreads/inter-spreads)\n   https://www.sciencedirect.com/science/article/abs/pii/S2210650221000511\n\n3. Explore creating matrix with book spreads, (spreads, sheet, page)\n   I don't know how this works, will have to study a little. But essentially, there would be a few dimensions,\n   - the spread which is the visual spread that appears and you design on,\n   - then the actual sheets before they are bound.\n   - Z axis relationships between individual pages.\n   And if you have a representation for this, you can use this space for physarium algorithms.\n\n4. Wave function collapse with book spreads + spread layouts even...\n   like taxonomic informations systems or puzzle books or smth. (RM book ali class)\n\n5. Excel sheets, table generated printed out... Can be filled in with text and then can be scanned, do simple ocr and have easy access for data visualisation and stuff and also ease of handwriting...\n   Can go further and think about what ways to interpret hand drawings/writing...  \n\n\t\t"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            2.2
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            6.5
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            5.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "font_variation_settings",
+          "\"wght\" 500"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.38
+          ]
+        ],
+        [
+          "fontFamily",
+          "Areal"
+        ]
+      ],
+      [
+        "TextFrame",
+        [
+          "text",
+          "\n\n6. Executing computations physically. \n   Like the typesize + leading relationship wheel, or graph multiplication, addition and stuff.\n\n7. Printing methods based on print masters and stuff, but perhaps with paper. Eg. ink transfer kind of stuff. Waxy prints, negative for water based smth to pass thru and print? a sieve sort of? Ponder...\n\n8. Desiginig italo calvino's books, or Arcadia  and incorporating structure of narrative or space in his books into the structure/form of the book\n   https://en.wikipedia.org/wiki/Arcadia_(play)\n\n9. Publishing a paper on procedural bookmaking?\n\n10. What is the relationship of sin/cos and circles\n    I'm just curious, probably a quick exercise and a quick zine (1 day project)\n\n11. Voronoi typesetting/layouting?\n    Use voronoi algorithms for typesetting text. Maybe plot text on points, or create a grid/structure using the algorithm and play in it.\n\n12. Lisajous curve table for typographic ratios\n    https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Lissajous_phase.svg/1200px-Lissajous_phase.svg.png\n    The above as an interface to typography? Blackburn pendulum?"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            0.7000000000000002
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            1
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            5.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "font_variation_settings",
+          "\"wght\" 500"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.38
+          ]
+        ],
+        [
+          "side",
+          "recto"
+        ],
+        [
+          "fontFamily",
+          "Areal"
+        ]
+      ]
+    ]
+  },
+  {
+    "content": [
+      [
+        "TextFrame",
+        [
+          "text",
+          "\n13. Algorithms: physarium, WFC, its explainations as zines. Zines may incorporate these algorithms in its structure\n\n14. making a super constrained model to run on a rasberri pi, assigning parameters to contrast (contrast as weight difference, size difference etc) and variations, business... and then training this model and running it. Not to run well but just to see how it works.\n\n15. How would saddle stitch pages sound if it was a rhythm (drum beat or smth) \n\n16. Paper sizes, where do they come from?\n"
+        ],
+        [
+          "top",
+          [
+            "hangline_verso",
+            3.2
+          ]
+        ],
+        [
+          "left",
+          [
+            "em",
+            2.5
+          ]
+        ],
+        [
+          "width",
+          [
+            "column_width_verso",
+            5.5
+          ]
+        ],
+        [
+          "height",
+          [
+            "em",
+            6
+          ]
+        ],
+        [
+          "font_variation_settings",
+          "\"wght\" 500"
+        ],
+        [
+          "font_size",
+          [
+            "em",
+            0.38
+          ]
+        ],
+        [
+          "fontFamily",
+          "Areal"
         ]
       ]
     ]
