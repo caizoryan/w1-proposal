@@ -1102,7 +1102,7 @@ document.body.appendChild(prevbtn)
 window.addEventListener("mousemove", (e) => {
 	mouse_x = e.clientX
 })
-book.current_spread = 3
+book.current_spread = 0
 updateui()
 
 book.drawBook()
