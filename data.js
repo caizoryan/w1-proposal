@@ -37,8 +37,8 @@ let AIM = {
 
 AIM.content.push(...[
 	`
-Catalgoue forms of books (genealogy), the properties that emerge from alternative structures of books and as how structures affect the organisation and interpretation of the content within them.`,
-	`Investigate whether (constrained computational tools[&/]environments) can produce forms of publications that can stand as alternatives to digital computational practices. In doing so attempt to expand the domain of computation into print and engage the body[&/]material practices in the process.`,
+Catalgoue forms of books (genealogy), the properties that emerge from alternative structures of books and how structures affect the organisation and interpretation of the content within them.`,
+	`Investigate whether computational tools[&/]environments can produce forms of publications that can stand as alternatives to digital computational practices (spreadsheets, calculations, generativitity). In doing so attempt to expand the domain of computation into print and engage the body[&/]material practices in the process. While the answer to this question is yes,, the aim is to explore how non-digital computation changes with the hindsight of several decades of digital computational practices and centuries of non-digital computational practices`,
 
 	``,
 	``].map(tt))
